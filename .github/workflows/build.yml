@@ -8,13 +8,14 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    name: ${{ matrix.distro }}
+    runs-on: ubuntu-24.04${{matrix.arch=='arm64' && '-arm' || ''}} 
+    name: ${{ matrix.distro }} ${{ matrix.arch }}
 
     strategy:
       fail-fast: false
       matrix:
         distro: [ 'rocky-8', 'rocky-8-nossh' ]
+        arch: [ 'amd64', 'arm64' ]
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -32,7 +33,7 @@ jobs:
       - name: store
         uses: actions/upload-artifact@v4
         with:
-          name: libcurl-${{ matrix.distro }}
+          name: libcurl-${{ matrix.distro }}-${{ matrix.arch }}
           path: libcurl.tar.gz
 
   release:
