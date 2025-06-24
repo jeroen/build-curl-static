@@ -12,7 +12,7 @@ RUN curl -LO https://github.com/curl/curl/releases/download/curl-8_14_1/curl-8.1
     rm curl-8.14.1.tar.gz
 
 RUN cd curl-8.14.1 && \
-    CC="gcc -fPIC" ./configure --enable-static --enable-shared --disable-docs --enable-symbol-hiding --enable-ipv6 --enable-threaded-resolver --with-gssapi --with-nghttp2  --with-ssl --enable-ldap --enable-ldaps --without-brotli --with-libidn2 --without-libpsl --without-libssh --with-ca-bundle="/etc/pki/tls/certs/ca-bundle.crt" &&\
+    CC="gcc -fPIC" ./configure --enable-static --enable-shared --disable-docs --enable-symbol-hiding --enable-ipv6 --enable-threaded-resolver --with-gssapi --with-nghttp2  --with-ssl --enable-ldap --enable-ldaps --without-brotli --with-libidn2 --without-libpsl --without-libssh --without-ca-bundle --with-ca-fallback=yes &&\
     make &&\
     make DESTDIR="/root" install
 
